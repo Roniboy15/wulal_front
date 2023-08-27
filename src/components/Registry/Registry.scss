@@ -1,0 +1,43 @@
+.registry-container {
+    max-width: 90vw;
+    margin: 0 auto;  // Center it horizontally
+    padding: 0;
+
+    h2 {
+        text-align: left; // Align the title to the left
+        margin-bottom: 20px;
+        color: rgb(0, 0, 0);
+
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 15px;
+
+            button {
+                background-color: transparent;
+                border: none;
+                color: rgb(255, 111, 0);
+                cursor: pointer;
+                text-align: left; // Align the button content to the left
+                text-decoration: none;
+                transition: transform 0.3s ease, color 0.3s ease; // Added transition for smooth effect
+
+                &:hover {
+                    text-decoration: none;
+                    color: rgb(255, 0, 0);
+                    transform: scale(1.1); // Enlarge the text by 10% on hover
+                }
+
+                // For mobile devices, use active pseudo-class for touch or tap
+                &:active {
+                    color: #007BFF;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}

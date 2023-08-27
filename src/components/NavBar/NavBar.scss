@@ -1,0 +1,102 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: max-content;
+
+
+    .navbar-brand {
+        max-width: 50vw;
+        font-family: 'Amatic SC', cursive;
+        color: rgb(244, 182, 28);
+
+        h4 {
+            font-weight: 700;
+            font-size: 30px;
+        }
+
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .navbar-toggler {
+        position: relative; // Ensuring the toggler has a set positioning context
+        z-index: 1002; // Make sure it appears on top of other elements
+        background: none;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+
+        .navbar-toggler-icon {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            // vertical-align: middle;
+            content: "";
+            background: no-repeat center center;
+            background-size: 100% 100%;
+            border: 0.05em solid #333;
+            border-radius: 0.25em;
+            cursor: pointer;
+        }
+    }
+
+}
+
+
+#bzh {
+    position: absolute; // Position it absolutely within the navbar
+    top: 1rem; // Adjust this value to set the vertical position from the top
+    right: 1rem; // Adjust this value to set the horizontal position from the right
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: small;
+    z-index: 1001; // Make sure it appears on top
+}
+
+
+.Registry {
+    max-height: 50vh;
+    overflow-y: scroll;
+    width: 100vw;
+    margin-top: 15px;
+}
+
+.Registry-item {
+    // This is a hypothetical class. Replace with the actual class or element that represents each title
+    break-inside: avoid; // avoid breaking inside a title
+    margin-bottom: 1rem; // add space below each title
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        .navbar-toggler {
+            display: block;
+        }
+
+        .Registry {
+            max-height: max-content;
+            overflow-x: hidden;
+            column-width: 200px; // this sets the minimum width for each column
+            column-gap: 1rem; // adjust this to set space between columns
+            width: 90vw;
+            column-width: 200px;
+            column-gap: 1rem;
+
+            margin-top: 15px;
+
+        }
+    }
+}

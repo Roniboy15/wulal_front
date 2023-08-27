@@ -1,0 +1,106 @@
+.flipbook-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+}
+
+.book {
+
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    margin-top: 12vh;
+}
+
+@media (min-width: 767px) {
+    .page-content {
+        margin-top: 15vh;
+    }
+}
+
+.section {
+    padding: 10px;
+    text-align: center;
+}
+
+.title-bold {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-top: 0;
+}
+
+.paragraph {
+    text-align: justify;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+
+
+.middle-left::before {
+    content: "💬 ";
+    font-size: 2rem; /* Adjust the size as desired */
+}
+
+.middle-right::before {
+    content: "📚 ";
+    font-size: 2rem; /* Adjust the size as desired */
+
+}
+
+.quote-section::before {
+    content: "💭 ";
+    font-size: 2rem; /* Adjust the size as desired */
+
+}
+
+.up-left,
+up_right {
+    min-height: 20vh;
+    max-height: 150vh;
+}
+
+.middle-left,
+.middle-right {
+    min-height: 20vh;
+    max-height: 150vh;
+    text-align: center;
+}
+
+.quote-section {
+    min-height: 20vh;
+    max-height: 100vh;
+    padding: 10px;
+    border-top: 2px solid #eee;
+    font-style: italic;
+    background-color: #fcfcfc;
+    text-align: center;
+}
+
+.quote-section cite {
+    display: block;
+    text-align: right;
+    font-style: normal;
+    font-weight: bold;
+    font-size: larger;
+    margin-top: 5px;
+}
+
+.up-right {
+    text-align: right;
+    direction: rtl; // for right-to-left languages like Hebrew
+}
+
+// For mobile view
+@media (max-width: 767px) {
+    .page-content {
+        grid-template-columns: 1fr;
+    }
+}

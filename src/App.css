@@ -1,0 +1,40 @@
+.App {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f8fa;
+  padding: 20px;
+  min-height: 100vh;
+
+  h1 {
+      text-align: center;
+      margin: 20px 0;
+  }
+}
+
+.language-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.btn-lang {
+  margin: 15px;
+  padding: 5px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: rgb(255, 111, 0); 
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.btn-lang:hover {
+  background-color: rgb(255, 89, 0);
+}
+
+@media (min-width: 768px) { /* Adjust for larger screens */
+  .btn-lang {
+    font-size: 24px;
+    padding: 10px 20px;
+  }
+}
