@@ -29,7 +29,7 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
                 const endY = e.changedTouches[0].clientY;
                 const distance = Math.abs(startY - endY);
     
-                if (distance < 20) {  // This is the threshold; adjust as needed
+                if (distance < 80) {  // This is the threshold; adjust as needed
                     e.preventDefault();
                 }
             }
