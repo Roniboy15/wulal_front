@@ -16,38 +16,38 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
-    useEffect(() => {
-        const handleTouchStart = (e) => {
-            if (!bookArea.current.contains(e.target)) {
-                // If the touch started outside the flipbook, return early
-                return;
-            }
-            setStartX(e.touches[0].clientX);  // Store the initial touch position
-        };
+    // useEffect(() => {
+    //     const handleTouchStart = (e) => {
+    //         if (!bookArea.current.contains(e.target)) {
+    //             // If the touch started outside the flipbook, return early
+    //             return;
+    //         }
+    //         setStartX(e.touches[0].clientX);  // Store the initial touch position
+    //     };
     
-        const handleTouchEnd = (e) => {
-            if (!bookArea.current.contains(e.target)) {
-                // If the touch ended outside the flipbook, return early
-                return;
-            }
-            const endX = e.changedTouches[0].clientX;
-            const distance = Math.abs(startX - endX);
+    //     const handleTouchEnd = (e) => {
+    //         if (!bookArea.current.contains(e.target)) {
+    //             // If the touch ended outside the flipbook, return early
+    //             return;
+    //         }
+    //         const endX = e.changedTouches[0].clientX;
+    //         const distance = Math.abs(startX - endX);
     
-            if (distance < 50) {  // This is the threshold; adjust as needed
-                e.preventDefault();  // Prevent the default behavior
-            }
-        };
+    //         if (distance < 50) {  // This is the threshold; adjust as needed
+    //             e.preventDefault();  // Prevent the default behavior
+    //         }
+    //     };
     
-        // Add the event listeners
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
+    //     // Add the event listeners
+    //     document.addEventListener('touchstart', handleTouchStart);
+    //     document.addEventListener('touchend', handleTouchEnd);
     
-        // Cleanup the event listeners
-        return () => {
-            document.removeEventListener('touchstart', handleTouchStart);
-            document.removeEventListener('touchend', handleTouchEnd);
-        };
-    }, [startX]);
+    //     // Cleanup the event listeners
+    //     return () => {
+    //         document.removeEventListener('touchstart', handleTouchStart);
+    //         document.removeEventListener('touchend', handleTouchEnd);
+    //     };
+    // }, [startX]);
     
     
 
@@ -82,6 +82,7 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
                 className='book'
                 width={windowWidth}
                 height={bookHeight}
+                mobileScrollSupport={false}
                 onFlip={(e) => setCurrentPage(e.data)}
 
             >
