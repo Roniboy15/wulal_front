@@ -15,6 +15,38 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
     const [windowWidth, setWindowWidth] = useState(undefined);
 
  
+    useEffect(() => {
+        let startY = 0;
+        let startX = 0;
+    
+        const handleTouchStart = (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        };
+    
+        const handleTouchMove = (e) => {
+            const moveY = e.touches[0].clientY;
+            const moveX = e.touches[0].clientX;
+    
+            const diffY = Math.abs(startY - moveY);
+            const diffX = Math.abs(startX - moveX);
+    
+            // If horizontal movement is greater than vertical movement, prevent the swipe
+            if (diffX > diffY) {
+                e.preventDefault();
+            }
+        };
+    
+        // Add the event listeners
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });  // Set passive to false to enable e.preventDefault()
+    
+        // Cleanup the event listeners
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchmove', handleTouchMove);
+        };
+    }, []);
     
 
 
