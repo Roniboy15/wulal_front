@@ -11,42 +11,13 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
+    const [isFolding, setIsFolding] = useState(false);
+
     let width = useWindowWidth();
     const [windowWidth, setWindowWidth] = useState(undefined);
 
- 
-    useEffect(() => {
-        let startY = 0;
-    
-        const handleTouchStart = (e) => {
-            if (bookArea.current && bookArea.current.contains(e.target)) {
-                startY = e.touches[0].clientY;
-            }
-        };
-    
-        const handleTouchEnd = (e) => {
-            if (bookArea.current && bookArea.current.contains(e.target)) {
-                const endY = e.changedTouches[0].clientY;
-                const distance = Math.abs(startY - endY);
-    
-                if (distance <200) {  // This is the threshold; adjust as needed
-                    e.preventDefault();
-                }
-            }
-        };
-    
-        // Add the event listeners
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
-    
-        // Cleanup the event listeners
-        return () => {
-            document.removeEventListener('touchstart', handleTouchStart);
-            document.removeEventListener('touchend', handleTouchEnd);
-        };
-    }, []);
-    
-    
+
+
 
 
     useEffect(() => {
@@ -72,6 +43,21 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
     }, [currentPage]);
 
 
+    const [pressStartTime, setPressStartTime] = useState(null);
+
+    const handleMouseDown = () => {
+        setPressStartTime(Date.now());
+    };
+
+    const handleMouseUp = (e) => {
+        const duration = Date.now() - pressStartTime;
+        if (duration < 500) {  // Threshold in milliseconds; adjust as needed
+            e.preventDefault();  // Prevent the default behavior if the click was too quick
+        }
+        setPressStartTime(null);
+    };
+
+
     return (
         <div ref={bookArea} className="flipbook-container mt-5">
             <HTMLFlipBook
@@ -80,8 +66,24 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
                 width={windowWidth}
                 height={bookHeight}
                 // mobileScrollSupport={true}
-                onFlip={(e) => setCurrentPage(e.data)}
-
+                onFlip={(e) => {
+                    // Only update the current page if the user is not just folding the page
+                    if (!isFolding) {
+                        setCurrentPage(e.data);
+                    }
+                }}
+                onChangeState={(e) => {
+                    if (e.data === "user_fold" || e.data === "fold_corner") {
+                        setIsFolding(true);
+                    } else {
+                        setIsFolding(false);
+                    }
+                }}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onTouchStart={handleMouseDown}   // For mobile touch events
+                onTouchEnd={handleMouseUp}       // For mobile touch events
+           
             >
                 {pages.map((page, index) => {
 
