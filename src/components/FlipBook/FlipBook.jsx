@@ -7,6 +7,7 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     const flipBookRef = useRef(null);
+    const bookArea = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
@@ -17,36 +18,38 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     useEffect(() => {
         const handleTouchStart = (e) => {
-            if (e.target.closest('.navbar-toggler')) {
-                // If the touch started on the navbar toggle button, return early
+            if (!bookArea.current.contains(e.target)) {
+                // If the touch started outside the flipbook, return early
                 return;
             }
             setStartX(e.touches[0].clientX);  // Store the initial touch position
         };
-
+    
         const handleTouchEnd = (e) => {
-            if (e.target.closest('.navbar-toggler')) {
-                // If the touch ended on the navbar toggle button, return early
+            if (!bookArea.current.contains(e.target)) {
+                // If the touch ended outside the flipbook, return early
                 return;
             }
             const endX = e.changedTouches[0].clientX;
             const distance = Math.abs(startX - endX);
-
+    
             if (distance < 50) {  // This is the threshold; adjust as needed
                 e.preventDefault();  // Prevent the default behavior
             }
         };
-
+    
         // Add the event listeners
         document.addEventListener('touchstart', handleTouchStart);
         document.addEventListener('touchend', handleTouchEnd);
-
+    
         // Cleanup the event listeners
         return () => {
             document.removeEventListener('touchstart', handleTouchStart);
             document.removeEventListener('touchend', handleTouchEnd);
         };
     }, [startX]);
+    
+    
 
 
     useEffect(() => {
@@ -73,7 +76,7 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
 
 
     return (
-        <div className="flipbook-container mt-5">
+        <div ref={bookArea} className="flipbook-container mt-5">
             <HTMLFlipBook
                 ref={flipBookRef}
                 className='book'
