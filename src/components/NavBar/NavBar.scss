@@ -6,7 +6,7 @@
     // display: flex;
     // align-items: center;
     // justify-content: space-between;
-    padding: 1rem 2rem;
+    // padding: 1rem 2rem;
     background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -15,13 +15,24 @@
 
 
     .navbar-brand {
-        max-width: 50vw;
+        padding: 2%;
+        margin-left: 10px;
+        max-width: 100vw;
         font-family: 'Amatic SC', cursive;
-        color: rgb(244, 182, 28);
+        color: rgb(252, 185, 16);
 
         h4 {
             font-weight: 700;
             font-size: 30px;
+
+            @media (max-width: 1500px) {
+                font-size: 25px;
+            }
+
+            @media (max-width: 340px) {
+                font-size: 20px;
+            }
+
         }
 
 
@@ -36,21 +47,40 @@
         background: none;
         border: none;
 
-        &:focus {
+        &:focus,
+        &:active {
             outline: none;
+            border: none;
+            box-shadow: none; // In case there's any box shadow
         }
 
+       
+
         .navbar-toggler-icon {
+            margin-top: 25px;
+            margin-right: 15px;
             display: inline-block;
             width: 1.5em;
             height: 1.5em;
-            // vertical-align: middle;
             content: "";
             background: no-repeat center center;
             background-size: 100% 100%;
-            border: 0.05em solid #333;
+            border: 0.05em solid rgb(252, 185, 16);
             border-radius: 0.25em;
             cursor: pointer;
+
+            &.bg-wulal {
+                background-color: rgba(252, 185, 16, 0.132);
+                border: 0.05em solid rgb(252, 185, 16);
+        
+                }
+
+            &:focus,
+            &:active {
+                outline: none;
+                border: none;
+                box-shadow: none;
+            }
         }
     }
 
@@ -64,14 +94,25 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: small;
     z-index: 1001; // Make sure it appears on top
+    color: rgb(255, 136, 0);
+
 }
 
 
 .Registry {
-    max-height: 50vh;
-    overflow-y: scroll;
+    max-height: 55vh;
     width: 100vw;
     margin-top: 15px;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1005;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+
+    @media (min-width: 768px) {
+        max-height: 50vh;
+        overflow-y: scroll;  // explicitly enable vertical scrolling    
+}
 }
 
 .Registry-item {
@@ -87,15 +128,15 @@
         }
 
         .Registry {
-            max-height: max-content;
-            overflow-x: hidden;
+            z-index: 1500;
+
             column-width: 200px; // this sets the minimum width for each column
             column-gap: 1rem; // adjust this to set space between columns
-            width: 90vw;
+            width: 100vw;
             column-width: 200px;
             column-gap: 1rem;
-
             margin-top: 15px;
+            overflow-y: scroll;  // explicitly enable vertical scrolling    
 
         }
     }
