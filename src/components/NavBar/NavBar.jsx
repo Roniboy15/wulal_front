@@ -19,14 +19,15 @@ function NavBar({ pages, lang, onPageSelect }) {
             </a>
 
             <button className="navbar-toggler" type="button" onClick={() => setShowRegistry(!showRegistry)}>
-                <span className={`navbar-toggler-icon ${showRegistry? 'bg-wulal' : ''}`}></span>
+                <span className={`navbar-toggler-icon ${showRegistry ? 'bg-wulal' : ''}`}></span>
             </button>
 
             <h6 id="bzh"
             >בס“ד</h6>
-
-            <div className='Registry'>
-                {showRegistry && <Registry pages={pages} onPageSelect={onPageSelect} setShowRegistry={setShowRegistry} />}
+            <div className='w-100 justify-content-center'>
+                <div className='Registry'>
+                    {showRegistry && <Registry pages={pages} onPageSelect={onPageSelect} setShowRegistry={setShowRegistry} />}
+                </div>
             </div>
 
         </nav>
