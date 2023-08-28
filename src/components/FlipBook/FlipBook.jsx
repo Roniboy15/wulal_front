@@ -17,34 +17,36 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     useEffect(() => {
         const handleTouchStart = (e) => {
-            setStartX(e.touches[0].clientX);
+            if (e.target.closest('.navbar-toggler')) {
+                // If the touch started on the navbar toggle button, return early
+                return;
+            }
+            setStartX(e.touches[0].clientX);  // Store the initial touch position
         };
-    
+
         const handleTouchEnd = (e) => {
+            if (e.target.closest('.navbar-toggler')) {
+                // If the touch ended on the navbar toggle button, return early
+                return;
+            }
             const endX = e.changedTouches[0].clientX;
             const distance = Math.abs(startX - endX);
-    
-            if (distance < 50) {
-                e.preventDefault();
+
+            if (distance < 50) {  // This is the threshold; adjust as needed
+                e.preventDefault();  // Prevent the default behavior
             }
         };
-    
-        // Ensure the ref is current and the rootNode element is available
-        if (flipBookRef.current && flipBookRef.current.rootNode) {
-            const flipBookElement = flipBookRef.current.rootNode;  // Get the DOM element from the ref
-    
-            // Add the event listeners to the flipBookElement
-            flipBookElement.addEventListener('touchstart', handleTouchStart);
-            flipBookElement.addEventListener('touchend', handleTouchEnd);
-    
-            // Cleanup the event listeners from the flipBookElement
-            return () => {
-                flipBookElement.removeEventListener('touchstart', handleTouchStart);
-                flipBookElement.removeEventListener('touchend', handleTouchEnd);
-            };
-        }
+
+        // Add the event listeners
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchend', handleTouchEnd);
+
+        // Cleanup the event listeners
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
     }, [startX]);
-    
 
 
     useEffect(() => {
