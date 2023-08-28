@@ -7,14 +7,38 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     const flipBookRef = useRef(null);
-
     const pageContentRef = useRef(null); // ref for the page-content div
-
     const [bookHeight, setBookHeight] = useState(2000); // default height
-
 
     let width = useWindowWidth();
     const [windowWidth, setWindowWidth] = useState(undefined);
+
+    const [startX, setStartX] = useState(0);  // Store the initial touch position
+
+    useEffect(() => {
+        const handleTouchStart = (e) => {
+            setStartX(e.touches[0].clientX);  // Store the initial touch position
+        };
+
+        const handleTouchEnd = (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const distance = Math.abs(startX - endX);
+
+            if (distance < 50) {  // This is the threshold; adjust as needed
+                e.preventDefault();  // Prevent the default behavior
+            }
+        };
+
+        // Add the event listeners
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchend', handleTouchEnd);
+
+        // Cleanup the event listeners
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [startX]);
 
 
     useEffect(() => {
@@ -29,7 +53,7 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
     let upLeftFontSize = getAdaptiveFontSize(pages[currentPage].up_left, width < 500 ? 400 : 180);
     let upRightFontSize = getAdaptiveFontSize(pages[currentPage].up_right, width < 500 ? 400 : 180);
     let middleLeftFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 : 300);
-    let middleRightFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 :300);
+    let middleRightFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 : 300);
     let quoteFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 500 ? 300 : 300);
 
     useEffect(() => {

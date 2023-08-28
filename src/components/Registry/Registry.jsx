@@ -2,6 +2,11 @@ import React from 'react';
 import './Registry.scss';
 
 function Registry({ pages, onPageSelect, setShowRegistry }) {
+
+    function handleLanguageClick() {
+        window.location.reload();
+    }
+    
     return (
         <div className="registry-container text-center">
             <ul>
@@ -15,6 +20,9 @@ function Registry({ pages, onPageSelect, setShowRegistry }) {
                     </li>
                 ))}
             </ul>
+            <div className="language-switcher" onClick={handleLanguageClick}>
+                🌐
+            </div>
         </div>
     );
 }

@@ -56,7 +56,7 @@ function App() {
                 </div>
                 : (!loading ?
                     <div className="App">
-                        <NavBar pages={data} onPageSelect={setCurrentPage} />
+                        <NavBar pages={data} lang={language} onPageSelect={setCurrentPage} />
                         <FlipBook className='mt-5' pages={data} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                     </div>
                     : <Loader />)
