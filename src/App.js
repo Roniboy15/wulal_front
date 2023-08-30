@@ -12,6 +12,7 @@ function App() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showLanguageSelection, setShowLanguageSelection] = useState(true); // New state for language selection visibility
+    const [dropDownActive, setDropDownActive] = useState(false);
 
 
     const fetchJSONS = async () => {
@@ -45,7 +46,6 @@ function App() {
         }
         return () => clearTimeout(timeoutId); // Clear timeout if the component is unmounted or if the effect re-runs
     }, [showLanguageSelection, loading])
-    
 
     return (
         <>
@@ -56,8 +56,10 @@ function App() {
                 </div>
                 : (!loading ?
                     <div className="App">
-                        <NavBar pages={data} lang={language} onPageSelect={setCurrentPage} />
-                        <FlipBook className='mt-5' pages={data} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                        <NavBar pages={data} lang={language} onPageSelect={setCurrentPage} setDropDownActive={setDropDownActive} dropDownActive={dropDownActive} />
+                        <div className='flipBook'>
+                            <FlipBook className='mt-5' pages={data} currentPage={currentPage} setCurrentPage={setCurrentPage} dropDownActive={dropDownActive} />
+                        </div>
                     </div>
                     : <Loader />)
             }
