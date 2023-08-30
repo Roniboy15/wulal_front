@@ -5,7 +5,6 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 
 function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
-    console.log(pages)
     const flipBookRef = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
@@ -99,6 +98,7 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
         };
     }, [startX, currentPage, pages.length, dropDownActive]);
     
+
 
     return (
         <div className="flipbook-container mt-5">
