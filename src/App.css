@@ -1,13 +1,19 @@
 .App {
   font-family: 'Arial', sans-serif;
   background-color: #f7f8fa;
-  padding: 20px;
+  /* padding: 20px; */
   min-height: 100vh;
 
   h1 {
       text-align: center;
       margin: 20px 0;
   }
+}
+
+.flipBook{
+  background-image: url('https://res.cloudinary.com/dg4sxlbfs/image/upload/v1693403214/wulal/3dd67074-339a-4536-8c33-894cd25f9325_qrrbau.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .language-selection {

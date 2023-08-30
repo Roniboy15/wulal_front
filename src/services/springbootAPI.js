@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'https://localhost:8000';
+const API_KEY = 'http://localhost:8000';
 
 // // Function to get the token from local storage
 // const getToken = () => {

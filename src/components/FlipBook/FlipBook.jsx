@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
-import HTMLFlipBook from "react-pageflip";
 import './FlipBook.scss';
 import useWindowWidth from '../../general_comps/useWidth';
 import getAdaptiveFontSize from '../../general_comps/fontSize';
 
-function FlipBook({ pages, currentPage, setCurrentPage }) {
+function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
+    console.log(pages)
     const flipBookRef = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
@@ -15,38 +15,6 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
-    useEffect(() => {
-        const handleTouchStart = (e) => {
-            if (e.target.closest('.navbar-toggler')) {
-                // If the touch started on the navbar toggle button, return early
-                return;
-            }
-            setStartX(e.touches[0].clientX);  // Store the initial touch position
-        };
-
-        const handleTouchEnd = (e) => {
-            if (e.target.closest('.navbar-toggler')) {
-                // If the touch ended on the navbar toggle button, return early
-                return;
-            }
-            const endX = e.changedTouches[0].clientX;
-            const distance = Math.abs(startX - endX);
-
-            if (distance < 50) {  // This is the threshold; adjust as needed
-                e.preventDefault();  // Prevent the default behavior
-            }
-        };
-
-        // Add the event listeners
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
-
-        // Cleanup the event listeners
-        return () => {
-            document.removeEventListener('touchstart', handleTouchStart);
-            document.removeEventListener('touchend', handleTouchEnd);
-        };
-    }, [startX]);
 
 
     useEffect(() => {
@@ -64,58 +32,109 @@ function FlipBook({ pages, currentPage, setCurrentPage }) {
     let middleRightFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 : 300);
     let quoteFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 500 ? 300 : 300);
 
-    useEffect(() => {
-        console.log("currentPage updated to:", currentPage);
-        if (flipBookRef.current && flipBookRef.current.pageFlip()) {
-            flipBookRef.current.pageFlip().turnToPage(currentPage);
-        }
-    }, [currentPage]);
 
+      // Helper function to go to the next page
+      const goToNextPage = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    // Helper function to go to the previous page
+    const goToPreviousPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    useEffect(() => {
+        const handleTouchStart = (e) => {
+            if (dropDownActive || e.target.closest('.navbar-toggler')) {
+                // If dropDownActive is true or the touch started on the navbar toggle button, return early
+                return;
+            }
+            setStartX(e.touches[0].clientX);  // Store the initial touch position
+        };
+    
+        const handleTouchEnd = (e) => {
+            if (dropDownActive || e.target.closest('.navbar-toggler')) {
+                return;
+            }
+            const endX = e.changedTouches[0].clientX;
+    
+            // Determine the swipe direction and navigate accordingly
+            if (endX > startX) {  // Swipe from left to right
+                goToPreviousPage();
+            } else if (endX < startX) {  // Swipe from right to left
+                goToNextPage();
+            }
+        };
+    
+        // New handler for click navigation
+        const handleClick = (e) => {
+            if (dropDownActive) {
+                return;
+            }
+            if (e.clientX < window.innerWidth / 2) {
+                goToPreviousPage();
+            } else {
+                goToNextPage();
+            }
+        };
+    
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('click', handleClick);
+    
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener('click', handleClick);
+        };
+    }, [startX, currentPage, pages.length, dropDownActive]);
+    
 
     return (
         <div className="flipbook-container mt-5">
-            <HTMLFlipBook
-                ref={flipBookRef}
-                className='book'
-                width={windowWidth}
-                height={bookHeight}
-                onFlip={(e) => setCurrentPage(e.data)}
-
-            >
-                {pages.map((page, index) => {
-
-                    return (
-                        <div ref={pageContentRef} key={index} className="page-content container-fluid">
-                            <div className='row justify-content-around'>
-                                <div className="section up-left col-12 col-md-5" >
-                                    <p style={{ fontSize: upLeftFontSize }} className="paragraph "><span className='title-bold'>{page.up_left_bold}{" "}</span>{page.up_left}</p>
-                                </div>
-                                <div className="section up-right col-12 col-md-5">
-                                    <p style={{ fontSize: upRightFontSize }} className="paragraph "><span className='title-bold'>{page.up_right_bold}{" "}</span>{page.up_right}</p>
-                                </div>
-                            </div>
-                            <div className='row justify-content-around'>
-                                <div className="section middle-left col-12 col-md-11 mt-1">
-                                    <p style={{ fontSize: middleLeftFontSize }} className="paragraph">{page.middle_left}</p>
-                                </div>
-                                <div className="section middle-right col-12 col-md-11 mt-5">
-                                    <p style={{ fontSize: middleRightFontSize }} className="paragraph">{page.middle_right}</p>
-                                </div>
-                                <div className='row justify-content-around'>
-
-                                    <blockquote className="quote-section col-12 col-md-9 mt-5 rounded-3">
-                                        <p style={{ fontSize: quoteFontSize, marginTop: "2vh" }} >{page.quote}</p>
-                                        <cite>{page.author}</cite>
-                                    </blockquote>
-                                </div>
-
-                            </div>
-                        </div>
-                    )
-                })}
-            </HTMLFlipBook>
+            <div ref={pageContentRef} className="page-content container-fluid">
+                <div className='row justify-content-around'>
+                    <div className="section up-left col-12 col-md-5" >
+                        <p style={{ fontSize: upLeftFontSize }} className="paragraph ">
+                            <span className='title-bold'>{pages[currentPage].up_left_bold}{" "}</span>
+                            {pages[currentPage].up_left}
+                        </p>
+                    </div>
+                    <div className="section up-right col-12 col-md-5">
+                        <p style={{ fontSize: upRightFontSize }} className="paragraph ">
+                            <span className='title-bold'>{pages[currentPage].up_right_bold}{" "}</span>
+                            {pages[currentPage].up_right}
+                        </p>
+                    </div>
+                </div>
+                <div className='row justify-content-around'>
+                    <div className="section middle-left col-12 col-md-11 mt-1">
+                        <p style={{ fontSize: middleLeftFontSize }} className="paragraph">
+                            {pages[currentPage].middle_left}
+                        </p>
+                    </div>
+                    <div className="section middle-right col-12 col-md-11 mt-5">
+                        <p style={{ fontSize: middleRightFontSize }} className="paragraph">
+                            {pages[currentPage].middle_right}
+                        </p>
+                    </div>
+                    <div className='row justify-content-around'>
+                        <blockquote className="quote-section col-12 col-md-9 mt-5 rounded-3">
+                            <p style={{ fontSize: quoteFontSize, marginTop: "2vh" }} >
+                                {pages[currentPage].quote}
+                            </p>
+                            <cite>{pages[currentPage].author}</cite>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
         </div>
     );
+
 }
 
 export default FlipBook;
