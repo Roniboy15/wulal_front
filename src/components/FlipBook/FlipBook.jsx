@@ -3,10 +3,17 @@ import './FlipBook.scss';
 import useWindowWidth from '../../general_comps/useWidth';
 import getAdaptiveFontSize from '../../general_comps/fontSize';
 
+<<<<<<< HEAD
 const savedPage = localStorage.getItem('savedCurrentPage');
 
 function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0, setCurrentPage, dropDownActive }) {
 console.log(currentPage)
+=======
+function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
+
+    console.log(pages)
+    const flipBookRef = useRef(null);
+>>>>>>> 15c134b (ok)
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
@@ -15,7 +22,12 @@ console.log(currentPage)
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> 15c134b (ok)
     useEffect(() => {
         setWindowWidth(width - 50);
 
@@ -46,6 +58,7 @@ console.log(currentPage)
         }
     };
 
+<<<<<<< HEAD
     useEffect(() => {
         const handleInteractionEnd = (e) => {
 <<<<<<< HEAD
@@ -79,11 +92,58 @@ console.log(currentPage)
 >>>>>>> ed4fc2d (ok)
     
             if (endX < window.innerWidth / 2) {
+=======
+
+      // Helper function to go to the next page
+      const goToNextPage = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    // Helper function to go to the previous page
+    const goToPreviousPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    useEffect(() => {
+        const handleTouchStart = (e) => {
+            if (dropDownActive || e.target.closest('.navbar-toggler')) {
+                // If dropDownActive is true or the touch started on the navbar toggle button, return early
+                return;
+            }
+            setStartX(e.touches[0].clientX);  // Store the initial touch position
+        };
+    
+        const handleTouchEnd = (e) => {
+            if (dropDownActive || e.target.closest('.navbar-toggler')) {
+                return;
+            }
+            const endX = e.changedTouches[0].clientX;
+    
+            // Determine the swipe direction and navigate accordingly
+            if (endX > startX) {  // Swipe from left to right
+                goToPreviousPage();
+            } else if (endX < startX) {  // Swipe from right to left
+                goToNextPage();
+            }
+        };
+    
+        // New handler for click navigation
+        const handleClick = (e) => {
+            if (dropDownActive) {
+                return;
+            }
+            if (e.clientX < window.innerWidth / 2) {
+>>>>>>> 15c134b (ok)
                 goToPreviousPage();
             } else {
                 goToNextPage();
             }
         };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     
@@ -107,6 +167,19 @@ console.log(currentPage)
         };
     }, [currentPage, pages.length, dropDownActive]);
 >>>>>>> 575da0d (fixed touch event problems)
+=======
+    
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('click', handleClick);
+    
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener('click', handleClick);
+        };
+    }, [startX, currentPage, pages.length, dropDownActive]);
+>>>>>>> 15c134b (ok)
     
 
     return (
