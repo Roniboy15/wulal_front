@@ -48,12 +48,14 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
     };
 
     useEffect(() => {
+        let startY = 0;  // Store the initial vertical touch position
+    
         const handleTouchStart = (e) => {
             if (dropDownActive || e.target.closest('.navbar-toggler')) {
-                // If dropDownActive is true or the touch started on the navbar toggle button, return early
                 return;
             }
-            setStartX(e.touches[0].clientX);  // Store the initial touch position
+            setStartX(e.touches[0].clientX);
+            startY = e.touches[0].clientY;  // Store the initial vertical touch position
         };
     
         const handleTouchEnd = (e) => {
@@ -61,16 +63,20 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
                 return;
             }
             const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = Math.abs(endX - startX);
+            const diffY = Math.abs(endY - startY);
     
-            // Determine the swipe direction and navigate accordingly
-            if (endX > startX) {  // Swipe from left to right
-                goToPreviousPage();
-            } else if (endX < startX) {  // Swipe from right to left
-                goToNextPage();
+            // Only switch pages if the horizontal swipe distance is significantly larger than the vertical swipe distance
+            if (diffX > diffY + 10) {
+                if (endX > startX) {
+                    goToPreviousPage();
+                } else if (endX < startX) {
+                    goToNextPage();
+                }
             }
         };
     
-        // New handler for click navigation
         const handleClick = (e) => {
             if (dropDownActive) {
                 return;
