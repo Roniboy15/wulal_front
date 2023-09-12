@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1.5rem;
-    
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .book {
@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin-top: 12vh;
+    margin-top: 10vh;
 }
 
 @media (min-width: 767px) {
@@ -60,22 +60,22 @@
 
 }
 
-.up-left,
-up_right {
-    min-height: 20vh;
-    max-height: 150vh;
-}
+// .up-left,
+// up_right {
+//     min-height: 20vh;
+//     max-height: 150vh;
+    
+// }
 
-.middle-left,
-.middle-right {
-    min-height: 20vh;
-    max-height: 150vh;
-    text-align: center;
-}
+// .middle-left,
+// .middle-right {
+//     min-height: 20vh;
+//     max-height: 150vh;
+//     text-align: center;
+// }
 
 .quote-section {
-    min-height: 20vh;
-    max-height: 100vh;
+   
     padding: 10px;
     border-top: 2px solid #eee;
     font-style: italic;

@@ -5,7 +5,6 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 
 function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
-    console.log(pages)
     const flipBookRef = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
@@ -15,7 +14,9 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
+useEffect(()=>{
 
+},[currentPage])
 
     useEffect(() => {
         setWindowWidth(width - 50);
@@ -26,11 +27,11 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
         }
     }, []);
 
-    let upLeftFontSize = getAdaptiveFontSize(pages[currentPage].up_left, width < 500 ? 400 : 180);
-    let upRightFontSize = getAdaptiveFontSize(pages[currentPage].up_right, width < 500 ? 400 : 180);
-    let middleLeftFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 : 300);
-    let middleRightFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 500 : 300);
-    let quoteFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 500 ? 300 : 300);
+    let upLeftFontSize = getAdaptiveFontSize(pages[currentPage].up_left, width < 500 ?500 : 180);
+    let upRightFontSize = getAdaptiveFontSize(pages[currentPage].up_right, width < 500 ? 500 : 180);
+    let middleLeftFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 700 : 300);
+    let middleRightFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 450 ? 700 : 300);
+    let quoteFontSize = getAdaptiveFontSize(pages[currentPage].middle_left, width < 500 ? 600 : 300);
 
 
       // Helper function to go to the next page
