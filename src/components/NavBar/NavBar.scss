@@ -58,8 +58,8 @@
 
 
         .navbar-toggler-icon {
-            margin-top: 70px;
-            margin-right: 40px;
+            margin-top: 60px;
+            margin-right: 20px;
             display: inline-block;
             width: 1.5em;
             height: 1.5em;
@@ -133,18 +133,6 @@
 
         .navbar-toggler {
             display: block;
-        }
-
-        .Registry {
-            z-index: 1500;
-            column-width: 200px; // this sets the minimum width for each column
-            column-gap: 1rem; // adjust this to set space between columns
-            width: 100vw;
-            column-width: 200px;
-            column-gap: 1rem;
-            margin-top: 15px;
-            overflow-y: scroll; // explicitly enable vertical scrolling    
-
         }
     }
 }
