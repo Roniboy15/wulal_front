@@ -1,4 +1,5 @@
 export const getAdaptiveFontSize = (text, containerHeight) => {
+  
     const dummyOutput = document.createElement('div');
     dummyOutput.innerHTML = text;
     dummyOutput.style.visibility = 'hidden';  // So it's not visible
