@@ -11,7 +11,6 @@ console.log(currentPage)
 =======
 function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
-    console.log(pages)
     const flipBookRef = useRef(null);
 >>>>>>> 15c134b (ok)
     const pageContentRef = useRef(null); // ref for the page-content div
@@ -23,9 +22,14 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+useEffect(()=>{
+>>>>>>> 73a3bec (ok)
 
+},[currentPage])
 
 >>>>>>> 15c134b (ok)
     useEffect(() => {
