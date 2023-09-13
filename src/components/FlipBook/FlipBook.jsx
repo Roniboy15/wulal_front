@@ -5,7 +5,6 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 
 function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
-    const flipBookRef = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
@@ -48,11 +47,27 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
     useEffect(() => {
         const handleInteractionEnd = (e) => {
+<<<<<<< HEAD
             if (dropDownActive || e.target.closest('.navbar-toggler')) {
                 return;
             }
     
             let endX = e.clientX;
+=======
+            // This check is needed to avoid triggering both click and touch events in some devices
+            if(e.type === "click" && 'ontouchstart' in document.documentElement) return;
+            
+            if (dropDownActive || e.target.closest('.navbar-toggler')) {
+                return;
+            }
+            
+            let endX;
+            if(e.type === 'touchend') {
+                endX = e.changedTouches[0].clientX;
+            } else if(e.type === 'click') {
+                endX = e.clientX;
+            }
+>>>>>>> 575da0d (fixed touch event problems)
     
             if (endX < window.innerWidth / 2) {
                 goToPreviousPage();
@@ -60,6 +75,7 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
                 goToNextPage();
             }
         };
+<<<<<<< HEAD
     
         document.addEventListener('click', handleInteractionEnd);
         
@@ -68,6 +84,17 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
         };
     }, [currentPage, pages.length, dropDownActive]);
     
+=======
+        
+        document.addEventListener('touchend', handleInteractionEnd);
+        document.addEventListener('click', handleInteractionEnd);
+        
+        return () => {
+            document.removeEventListener('touchend', handleInteractionEnd);
+            document.removeEventListener('click', handleInteractionEnd);
+        };
+    }, [currentPage, pages.length, dropDownActive]);
+>>>>>>> 575da0d (fixed touch event problems)
     
 
     return (
