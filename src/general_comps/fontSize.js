@@ -3,6 +3,7 @@ export const getAdaptiveFontSize = (text, containerHeight) => {
     dummyOutput.innerHTML = text;
     dummyOutput.style.visibility = 'hidden';  // So it's not visible
     dummyOutput.style.position = 'absolute';  // To not interfere with other elements
+  
     dummyOutput.style.fontSize = '35px';     // Start with a large font size
     dummyOutput.style.wordBreak = 'break-all';
     dummyOutput.style.wordWrap = 'break-word';

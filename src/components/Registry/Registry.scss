@@ -1,18 +1,17 @@
 .registry-container {
-<<<<<<< HEAD
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 30px;
     
-=======
+
     margin: 0 auto; // Center it horizontally
     padding: 0;
     margin-top: 25px;
     margin-bottom: 25px;
 
->>>>>>> 8e8b728 (ok)
     @media (max-width: 768px) {
         // width: 100vw;
     }
@@ -37,19 +36,23 @@
             margin-bottom: 15px;
 
             button {
-<<<<<<< HEAD
+
                 width: 100%;
                 padding: 10px 15px;
                 background-color: rgba(252, 185, 16, 0.132);
                 border: 2px solid rgba(255, 111, 0, 0.5); // Transparent orange border
                 border-radius: 8px; // More rounded corners, 1cm might be too round
-=======
                 padding: 8px;
                 background-color: transparent;
                 border: 1px solid;
                 border-radius: 1cm;
                 background-color: rgba(252, 185, 16, 0.132);
->>>>>>> 8e8b728 (ok)
+
+                width: 100%;
+                padding: 10px 15px;
+                background-color: rgba(252, 185, 16, 0.132);
+                border: 2px solid rgba(255, 111, 0, 0.5); // Transparent orange border
+                border-radius: 8px; // More rounded corners, 1cm might be too round
                 font-weight: 600;
                 color: rgb(255, 111, 0);
                 cursor: pointer;

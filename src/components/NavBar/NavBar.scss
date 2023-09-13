@@ -108,7 +108,6 @@
     -webkit-overflow-scrolling: touch;
     z-index: 1005;
     overflow-y: scroll;
-<<<<<<< HEAD
     overflow-x: hidden;
 
 
@@ -116,15 +115,6 @@
         max-height: 50vh;
         overflow-y: scroll;  // explicitly enable vertical scrolling    
 }
-=======
-    
-    @media (min-width: 768px) {
-        max-height: 50vh;
-        overflow-y: scroll; // explicitly enable vertical scrolling    
-        overflow-x: scroll;
-
-    }
->>>>>>> 8e8b728 (ok)
 }
 
 
