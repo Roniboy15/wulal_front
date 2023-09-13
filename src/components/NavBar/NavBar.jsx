@@ -35,7 +35,7 @@ function NavBar({ pages, lang, onPageSelect, setDropDownActive, dropDownActive }
             >בס“ד</h6>
 
             <div className={`Registry`}>
-                {showRegistry && <Registry pages={pages} onPageSelect={onPageSelect} setShowRegistry={setShowRegistry} />}
+                {showRegistry && <Registry pages={pages} onPageSelect={onPageSelect} setShowRegistry={setShowRegistry} setDropDownActive={setDropDownActive}/>}
             </div>
 
         </nav>
