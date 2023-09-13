@@ -1,51 +1,55 @@
 .registry-container {
-    margin: 0 auto; // Center it horizontally
-    padding: 0;
-    margin-top: 25px;
-    margin-bottom: 25px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    
     @media (max-width: 768px) {
         // width: 100vw;
     }
 
-
     h2 {
-        text-align: left; // Align the title to the left
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin-bottom: 30px;
         color: rgb(0, 0, 0);
-
+        font-weight: 600; // Bold the header
     }
 
     ul {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
         list-style-type: none;
         padding: 0;
+        width: 100%;
 
         li {
+            
             margin-bottom: 15px;
 
             button {
-                padding: 8px;
-                background-color: transparent;
-                border: 1px solid;
-                border-radius: 1cm;
+                width: 100%;
+                padding: 10px 15px;
                 background-color: rgba(252, 185, 16, 0.132);
+                border: 2px solid rgba(255, 111, 0, 0.5); // Transparent orange border
+                border-radius: 8px; // More rounded corners, 1cm might be too round
                 font-weight: 600;
                 color: rgb(255, 111, 0);
                 cursor: pointer;
-                text-align: left; // Align the button content to the left
+                text-align: left;
                 text-decoration: none;
-                transition: transform 0.3s ease, color 0.3s ease; // Added transition for smooth effect
+                transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
                 &:hover {
-                    text-decoration: none;
-                    color: rgb(255, 0, 0);
-                    transform: scale(1.1); // Enlarge the text by 10% on hover
+                    background-color: rgba(252, 185, 16, 0.5);
+                    box-shadow: 0px 4px 15px rgba(252, 185, 16, 0.2); // Add shadow for 3D effect on hover
+                    transform: translateY(-3px); // Lift the button up a bit on hover
                 }
 
-                // For mobile devices, use active pseudo-class for touch or tap
                 &:active {
-                    color: #007BFF;
-                    transform: scale(1.1);
+                    background-color: rgba(255, 111, 0, 0.8);
+                    transform: translateY(1px); // Push the button down a bit on click
                 }
             }
         }
@@ -56,8 +60,17 @@
         bottom: 15px;
         right: 20px;
         cursor: pointer;
-        font-size: 24px;
-        z-index: 1003; // Ensure it appears on top of other elements
-    }
+        font-size: 26px;
+        z-index: 1003;
+        transition: transform 0.2s ease, color 0.2s ease;
 
+        &:hover {
+            color: rgb(255, 111, 0);
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
 }

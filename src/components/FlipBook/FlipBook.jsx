@@ -5,7 +5,6 @@ import getAdaptiveFontSize from '../../general_comps/fontSize';
 
 function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
-    const flipBookRef = useRef(null);
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
@@ -14,9 +13,7 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
-useEffect(()=>{
 
-},[currentPage])
 
     useEffect(() => {
         setWindowWidth(width - 50);
@@ -49,56 +46,36 @@ useEffect(()=>{
     };
 
     useEffect(() => {
-        let startY = 0;  // Store the initial vertical touch position
-    
-        const handleTouchStart = (e) => {
+        const handleInteractionEnd = (e) => {
+            // This check is needed to avoid triggering both click and touch events in some devices
+            if(e.type === "click" && 'ontouchstart' in document.documentElement) return;
+            
             if (dropDownActive || e.target.closest('.navbar-toggler')) {
                 return;
             }
-            setStartX(e.touches[0].clientX);
-            startY = e.touches[0].clientY;  // Store the initial vertical touch position
-        };
-    
-        const handleTouchEnd = (e) => {
-            if (dropDownActive || e.target.closest('.navbar-toggler')) {
-                return;
+            
+            let endX;
+            if(e.type === 'touchend') {
+                endX = e.changedTouches[0].clientX;
+            } else if(e.type === 'click') {
+                endX = e.clientX;
             }
-            const endX = e.changedTouches[0].clientX;
-            const endY = e.changedTouches[0].clientY;
-            const diffX = Math.abs(endX - startX);
-            const diffY = Math.abs(endY - startY);
     
-            // Only switch pages if the horizontal swipe distance is significantly larger than the vertical swipe distance
-            if (diffX > diffY + 10) {
-                if (endX > startX) {
-                    goToPreviousPage();
-                } else if (endX < startX) {
-                    goToNextPage();
-                }
-            }
-        };
-    
-        const handleClick = (e) => {
-            if (dropDownActive) {
-                return;
-            }
-            if (e.clientX < window.innerWidth / 2) {
+            if (endX < window.innerWidth / 2) {
                 goToPreviousPage();
             } else {
                 goToNextPage();
             }
         };
-    
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
-        document.addEventListener('click', handleClick);
-    
+        
+        document.addEventListener('touchend', handleInteractionEnd);
+        document.addEventListener('click', handleInteractionEnd);
+        
         return () => {
-            document.removeEventListener('touchstart', handleTouchStart);
-            document.removeEventListener('touchend', handleTouchEnd);
-            document.removeEventListener('click', handleClick);
+            document.removeEventListener('touchend', handleInteractionEnd);
+            document.removeEventListener('click', handleInteractionEnd);
         };
-    }, [startX, currentPage, pages.length, dropDownActive]);
+    }, [currentPage, pages.length, dropDownActive]);
     
 
 
