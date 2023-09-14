@@ -78,7 +78,6 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
     }, [currentPage, pages.length, dropDownActive]);
     
 
-
     return (
         <div className="flipbook-container mt-5">
             <div ref={pageContentRef} className="page-content container-fluid">
