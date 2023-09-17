@@ -47,19 +47,11 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
     useEffect(() => {
         const handleInteractionEnd = (e) => {
-            // This check is needed to avoid triggering both click and touch events in some devices
-            if(e.type === "click" && 'ontouchstart' in document.documentElement) return;
-            
             if (dropDownActive || e.target.closest('.navbar-toggler')) {
                 return;
             }
-            
-            let endX;
-            if(e.type === 'touchend') {
-                endX = e.changedTouches[0].clientX;
-            } else if(e.type === 'click') {
-                endX = e.clientX;
-            }
+    
+            let endX = e.clientX;
     
             if (endX < window.innerWidth / 2) {
                 goToPreviousPage();
@@ -67,12 +59,10 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
                 goToNextPage();
             }
         };
-        
-        document.addEventListener('touchend', handleInteractionEnd);
+    
         document.addEventListener('click', handleInteractionEnd);
         
         return () => {
-            document.removeEventListener('touchend', handleInteractionEnd);
             document.removeEventListener('click', handleInteractionEnd);
         };
     }, [currentPage, pages.length, dropDownActive]);
