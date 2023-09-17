@@ -17,7 +17,7 @@ function Registry({ pages, onPageSelect, setShowRegistry, setDropDownActive }) {
                             setShowRegistry(false)
                             setTimeout(() => {
                                 setDropDownActive(false)
-                            }, 500)
+                            }, 400)
                             console.log(index)
                         }}>{page.title}</button>
                     </li>
