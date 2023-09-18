@@ -4,30 +4,32 @@
   min-height: 100vh;
 
   h1 {
-      text-align: center;
-      margin: 20px 0;
+    text-align: center;
+    margin: 20px 0;
   }
 }
 
-.flipBook{
+.flipBook {
   background-image: url('https://res.cloudinary.com/dg4sxlbfs/image/upload/v1693403214/wulal/3dd67074-339a-4536-8c33-894cd25f9325_qrrbau.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .language-selection {
+
   display: flex;
+  height: 100vh;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
+
 
 .btn-lang {
   margin: 15px;
   padding: 5px 10px;
   font-size: 20px;
   cursor: pointer;
-  background-color: rgb(255, 111, 0); 
+  background-color: rgb(255, 111, 0);
   color: white;
   border-radius: 5px;
   transition: background-color 0.2s;
@@ -37,9 +39,11 @@
   background-color: rgb(255, 89, 0);
 }
 
-@media (min-width: 768px) { /* Adjust for larger screens */
+@media (min-width: 768px) {
+
+  /* Adjust for larger screens */
   .btn-lang {
-    font-size: 24px;
-    padding: 10px 20px;
+    font-size: 20px;
+    padding: 5px 15px;
   }
 }
