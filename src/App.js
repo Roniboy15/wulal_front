@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import FlipBook from './components/FlipBook/FlipBook';
 import NavBar from './components/NavBar/NavBar';
 import './App.css'
 import { doApiGet } from './services/springbootAPI';
 import Loader from './general_comps/loader/loader';
+import useWindowWidth from './general_comps/useWidth';
 
 function App() {
 
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(localStorage.getItem('savedCurrentPage')?parseInt(localStorage.getItem('savedCurrentPage'), 10):0);
     const [language, setLanguage] = useState();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showLanguageSelection, setShowLanguageSelection] = useState(true); // New state for language selection visibility
     const [dropDownActive, setDropDownActive] = useState(false);
-
+    const width = useWindowWidth();
 
     const fetchJSONS = async () => {
         let url = '/file/fetch?folder=' + language;
@@ -25,6 +26,28 @@ function App() {
             console.log(err);
         }
     };
+
+    const timeoutRef = useRef(null);
+
+    useEffect(() => {
+        localStorage.setItem('savedCurrentPage', currentPage);
+        // Clear any existing timeout
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+    
+        // Set a new timeout to clear the saved page after one hour
+        timeoutRef.current = setTimeout(() => {
+            localStorage.removeItem('savedCurrentPage');
+        }, 3600000); // 3600000ms is one hour
+    
+        // When the component is unmounted or before setting a new timeout, clear the existing one
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, [currentPage]);
 
     useEffect(() => {
         if (language) { // Only fetch when a language is selected
@@ -51,8 +74,15 @@ function App() {
         <>
             {showLanguageSelection ?
                 <div className="language-selection">
-                    <button className=' btn-lang' onClick={() => handleLanguageSelection('deutsch')}>Deutsch</button>
-                    <button className=' btn-lang' onClick={() => handleLanguageSelection('english')}>English</button>
+                    <div className='row'>
+                        <div className='col-12 text-center'>
+                            <img width={width < 500 ? 250 : 350} src='https://res.cloudinary.com/dg4sxlbfs/image/upload/v1693400461/wulal/091596CA-1BB3-4C99-9A78-25308D9CDA3D_xiqj8i.jpg'></img>
+                        </div>
+                        <div className='col-12 text-center mt-3'>
+                            <button className=' btn-lang' onClick={() => handleLanguageSelection('deutsch')}>Deutsch</button>
+                            <button className=' btn-lang' onClick={() => handleLanguageSelection('english')}>English</button>
+                        </div>
+                    </div>
                 </div>
                 : (!loading ?
                     <div className="App">
