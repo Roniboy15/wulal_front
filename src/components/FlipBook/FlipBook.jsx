@@ -5,8 +5,10 @@ import './FlipBook.scss';
 import useWindowWidth from '../../general_comps/useWidth';
 import getAdaptiveFontSize from '../../general_comps/fontSize';
 
-function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
+const savedPage = localStorage.getItem('savedCurrentPage');
 
+function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0, setCurrentPage, dropDownActive }) {
+console.log(currentPage)
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
@@ -15,8 +17,7 @@ function FlipBook({ pages, currentPage, setCurrentPage, dropDownActive }) {
 
     const [startX, setStartX] = useState(0);  // Store the initial touch position
 
-
-
+    
     useEffect(() => {
         setWindowWidth(width - 50);
 
