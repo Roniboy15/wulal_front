@@ -15,12 +15,8 @@ function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0
 
     let width = useWindowWidth();
     const [windowWidth, setWindowWidth] = useState(undefined);
-    const location = useLocation().pathname;
 
-    const flipbookContainerRef = useRef(null);
-
-
-
+    
     useEffect(() => {
         setWindowWidth(width - 50);
 
