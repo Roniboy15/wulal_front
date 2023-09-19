@@ -20,8 +20,11 @@ function App() {
         let url = '/file/fetch?folder=' + language;
         try {
             const response = await doApiGet(url);
+            response.sort((a, b) => a.id - b.id);
+
             setData(response);
             setLoading(false)
+
         } catch (err) {
             console.log(err);
         }
