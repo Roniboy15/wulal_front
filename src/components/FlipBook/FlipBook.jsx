@@ -7,14 +7,15 @@ import ArrowComponent from '../../general_comps/arrow';
 const savedPage = localStorage.getItem('savedCurrentPage');
 
 function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0, setCurrentPage, dropDownActive }) {
-
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
     let width = useWindowWidth();
     const [windowWidth, setWindowWidth] = useState(undefined);
 
+    const [startX, setStartX] = useState(0);  // Store the initial touch position
 
+    
     useEffect(() => {
         setWindowWidth(width - 50);
 
