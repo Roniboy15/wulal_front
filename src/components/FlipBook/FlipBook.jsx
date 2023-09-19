@@ -9,6 +9,7 @@ const savedPage = localStorage.getItem('savedCurrentPage');
 
 function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0, setCurrentPage, dropDownActive }) {
 
+
     const pageContentRef = useRef(null); // ref for the page-content div
     const [bookHeight, setBookHeight] = useState(2000); // default height
 
