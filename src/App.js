@@ -92,6 +92,7 @@ function App() {
                         <NavBar pages={data} lang={language} onPageSelect={setCurrentPage} setDropDownActive={setDropDownActive} dropDownActive={dropDownActive} />
                         <div className='flipBook'>
                             <FlipBook className='mt-5' pages={data} currentPage={currentPage} setCurrentPage={setCurrentPage} dropDownActive={dropDownActive} />
+
                         </div>
                     </div>
                     : <Loader />)
