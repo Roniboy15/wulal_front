@@ -102,61 +102,32 @@ function App() {
     }, [loadingPrayers, loadingQuotes])
 
     return (
-        <BrowserRouter>
-            <div className="App">
+        <>
+            {showLanguageSelection ?
+                <div className="language-selection">
+                    <div className='row'>
+                        <div className='col-12 text-center'>
+                            <img width={width < 500 ? 250 : 350} src='https://res.cloudinary.com/dg4sxlbfs/image/upload/v1693400461/wulal/091596CA-1BB3-4C99-9A78-25308D9CDA3D_xiqj8i.jpg'></img>
+                        </div>
+                        <div className='col-12 text-center mt-3'>
+                            <button className=' btn-lang' onClick={() => handleLanguageSelection('deutsch')}>Deutsch</button>
+                            <button className=' btn-lang' onClick={() => handleLanguageSelection('english')}>English</button>
+                        </div>
+                    </div>
+                </div>
+                : (!loading ?
+                    <div className="App">
+                        <NavBar pages={data} lang={language} onPageSelect={setCurrentPage} setDropDownActive={setDropDownActive} dropDownActive={dropDownActive} />
+                        <div className='flipBook'>
+                            <FlipBook className='mt-5' pages={data} currentPage={currentPage} setCurrentPage={setCurrentPage} dropDownActive={dropDownActive} />
 
-                <Routes>
-                    {/* Route for Language Selection */}
-                    <Route path="/" element={
-                        <LanguageSelection
-                            setShowLangBtn={setShowLangBtn}
-                            handleLanguageSelection={handleLanguageSelection}
-                            width={width}
-                            fetchQuotes={fetchQuotes}
-                            showLangBtn={showLangBtn}
-                        />}
-                    />
-
-                    {/* Route for FlipBook */}
-                    <Route path="/flipbook" element={loadingPrayers ? <Loader /> :
-                        <>
-                            <NavBar
-                                pages={prayers}
-                                lang={language}
-                                onPageSelect={setCurrentPage}
-                                setDropDownActive={setDropDownActive}
-                                dropDownActive={dropDownActive}
-
-                            />
-                            <FlipBook
-                                className='mt-5'
-                                pages={prayers}
-                                currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
-                                dropDownActive={dropDownActive}
-                            />
-                        </>
-                    } />
-
-
-                    {/* Route for Quotes */}
-                    <Route path="/quotes" element={loadingQuotes ? <Loader /> :
-                        <>
-                            <NavBar
-                                lang={language}
-                                setDropDownActive={setDropDownActive}
-                                dropDownActive={dropDownActive}
-
-                            />
-                            <Quotes quotesData={quotes} />
-                        </>
-                    } />
-                </Routes>
-            </div>
-        </BrowserRouter>
+                        </div>
+                    </div>
+                    : <Loader />)
+            }
+        </>
     );
+
 }
-
-
 
 export default App;
