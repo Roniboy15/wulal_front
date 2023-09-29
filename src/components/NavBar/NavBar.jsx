@@ -18,7 +18,7 @@ function NavBar({ pages, lang, onPageSelect, setDropDownActive, dropDownActive }
                     <h4>Wake up Like a Lion <br />
                         In loving memory of Josh Carr z”l</h4>
                 } */}
-                <img width={width < 500 ? 200 : 250} src='https://res.cloudinary.com/dg4sxlbfs/image/upload/v1693400461/wulal/091596CA-1BB3-4C99-9A78-25308D9CDA3D_xiqj8i.jpg'></img>
+                <img width={width < 500 ? 200 : 250} src={lang == "deutsch" ? `https://res.cloudinary.com/dg4sxlbfs/image/upload/v1695978355/wulal/WhatsApp_Image_2023-09-29_at_12.05.07_peesu4.jpg`: `https://res.cloudinary.com/dg4sxlbfs/image/upload/v1695978355/wulal/WhatsApp_Image_2023-09-29_at_12.05.07_1_akvzot.jpg`}></img>
 
             </a>
 
