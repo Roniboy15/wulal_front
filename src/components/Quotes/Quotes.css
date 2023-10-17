@@ -1,0 +1,92 @@
+.quotesComponent {
+    background-color: #f7f8fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 30vh;
+}
+
+.quoteNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.quotesComponent h2 {
+    font-size: 24px;
+    line-height: 1.4;
+    color: #333;
+    margin: 0 20px;
+    text-align: center;
+    flex-grow: 2;
+}
+
+.quotesComponent .addingMessage {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.quotesComponent .quoteInput {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+.quotesComponent textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.quotesComponent button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgba(255, 111, 0, 0.896); /* From your .btn-lang class */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.quotesComponent button:hover {
+    background-color: rgb(255, 89, 0); /* From your .btn-lang:hover class */
+}
+
+.quotesComponent button:active {
+    background-color: #004399;
+}
+
+/* .quotesComponent button:last-child {
+    background-color: #ccc;
+    color: #333;
+} */
+
+.quotesComponent button:last-child:hover {
+    background-color: #999;
+}
+
+/* Adjust for larger screens */
+@media (min-width: 768px) {
+    .quotesComponent button {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+}
+
+
+
+.quote-field {
+    max-width: 60vw;
+    overflow-wrap: break-word;
+}
