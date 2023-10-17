@@ -16,6 +16,10 @@ const Quotes = ({ quotesData }) => {
       return;
     }
 
+    if (quotes.length === 0) {
+      return;
+    }
+
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
     }, 5000);
@@ -51,13 +55,13 @@ const Quotes = ({ quotesData }) => {
 
 
 
-const navigateQuotes = (direction) => {
-  if (direction === 'left') {
-    setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
-  } else if (direction === 'right') {
-    setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-  }
-};
+  const navigateQuotes = (direction) => {
+    if (direction === 'left') {
+      setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
+    } else if (direction === 'right') {
+      setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+    }
+  };
 
   return (
     <div className="quotesComponent" >
@@ -73,20 +77,21 @@ const navigateQuotes = (direction) => {
 
 
     {addingMessage && <p className="addingMessage">{addingMessage}</p>}
+      {addingMessage && <p className="addingMessage">{addingMessage}</p>}
 
-      e{addingQuote ? (
-        <div className="quoteInput">
-          <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
-          <button onClick={addQuote}>Submit</button>
-          <button onClick={() => setAddingQuote(false)}>Cancel</button>
-        </div>
-      ) : (
-        <div className='w-100 text-center'>        
-          <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
-        </div>
-      )}
-    </div>
-  );
+    {addingQuote ? (
+      <div className="quoteInput">
+        <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
+        <button onClick={addQuote}>Submit</button>
+        <button onClick={() => setAddingQuote(false)}>Cancel</button>
+      </div>
+    ) : (
+      <div className='w-100 text-center'>
+        <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
+      </div>
+    )}
+  </div>
+);
 };
 
 export default Quotes;
