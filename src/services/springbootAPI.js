@@ -34,7 +34,6 @@ const API_KEY = 'https://wulal-886ecc4c7ff3.herokuapp.com';
       throw err;
     }
   };
-
   
 
   export const doApiPost = async (url, text) => {
