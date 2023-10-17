@@ -23,7 +23,8 @@ const API_KEY = 'https://wulal-886ecc4c7ff3.herokuapp.com';
         },
       });
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error.response);
+      if(error.response.status == 429)return 10;
     }
   };
   
