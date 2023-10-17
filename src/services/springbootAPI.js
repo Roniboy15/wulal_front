@@ -45,7 +45,8 @@ const API_KEY = 'http://localhost:8000';
         },
       });
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error.response);
+      if(error.response.status == 429)return 10;
     }
   };
   
