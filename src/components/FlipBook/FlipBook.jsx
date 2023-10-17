@@ -3,6 +3,7 @@ import './FlipBook.scss';
 import useWindowWidth from '../../general_comps/useWidth';
 import getAdaptiveFontSize from '../../general_comps/fontSize';
 import ArrowComponent from '../../general_comps/arrow';
+import { useLocation } from 'react-router-dom';
 
 const savedPage = localStorage.getItem('savedCurrentPage');
 
@@ -13,6 +14,10 @@ function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0
 
     let width = useWindowWidth();
     const [windowWidth, setWindowWidth] = useState(undefined);
+    const location = useLocation().pathname;
+
+    const flipbookContainerRef = useRef(null);
+
 
 
     useEffect(() => {
@@ -46,7 +51,10 @@ function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0
     };
 
     useEffect(() => {
+        const currentElement = flipbookContainerRef.current;
+
         const handleInteractionEnd = (e) => {
+
             if (dropDownActive || e.target.closest('.navbar-toggler')) {
                 return;
             }
@@ -59,18 +67,21 @@ function FlipBook({ pages, currentPage = savedPage ? parseInt(savedPage, 10) : 0
                 goToNextPage();
             }
         };
+       
 
-        document.addEventListener('click', handleInteractionEnd);
+        if (location === "/flipbook" && currentElement) {
+            currentElement.addEventListener('click', handleInteractionEnd);
+            return () => {
+                currentElement.removeEventListener('click', handleInteractionEnd);
+            };
+        }
 
-        return () => {
-            document.removeEventListener('click', handleInteractionEnd);
-        };
     }, [currentPage, pages.length, dropDownActive]);
 
 
     return (
-        <div className="flipbook-container mt-5">
-            <ArrowComponent pagesLength={pages.length} currentPage={currentPage}  />
+        <div ref={flipbookContainerRef} className="flipbook-container mt-5">
+            <ArrowComponent pagesLength={pages.length} currentPage={currentPage} />
             <div ref={pageContentRef} className="page-content container-fluid">
                 <div className='row justify-content-around'>
                     {width > 770 ?

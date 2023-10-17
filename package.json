@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-flip-page": "^1.6.4",
     "react-pageflip": "^2.0.3",
+    "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "sass": "^1.66.1",
     "web-vitals": "^2.1.4"

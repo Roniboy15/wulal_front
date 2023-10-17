@@ -1,14 +1,17 @@
 import React from 'react';
 import './Registry.scss';
+import { Link, useLocation } from 'react-router-dom';
 
 function Registry({ pages, onPageSelect, setShowRegistry, setDropDownActive }) {
 
     function handleLanguageClick() {
-        window.location.reload();
     }
+
+const location = useLocation().pathname;
 
     return (
         <div className="registry-container text-center">
+            {location === "/flipbook" ?
             <ul>
                 {pages.map((page, index) => (
                     <li key={page.id || index}>
@@ -22,9 +25,11 @@ function Registry({ pages, onPageSelect, setShowRegistry, setDropDownActive }) {
                     </li>
                 ))}
             </ul>
-            <div className="language-switcher" onClick={handleLanguageClick}>
+            : null
+}
+            <Link to={"/"} className="language-switcher" onClick={handleLanguageClick}>
                 🌐
-            </div>
+            </Link>
         </div>
     );
 }

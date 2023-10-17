@@ -34,4 +34,18 @@ const API_KEY = 'http://localhost:8000';
       throw err;
     }
   };
+
+  
+
+  export const doApiPost = async (url, text) => {
+    try {
+      let res = await axios.post(API_KEY + url, text, {
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
   
