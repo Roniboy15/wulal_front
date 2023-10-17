@@ -4,6 +4,7 @@ import './Quotes.css';
 import { doApiPost } from '../../services/springbootAPI';
 
 const Quotes = ({ quotesData }) => {
+const Quotes = ({ quotesData }) => {
   const [quotes, setQuotes] = useState(quotesData);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [addingQuote, setAddingQuote] = useState(false);
@@ -50,13 +51,13 @@ const Quotes = ({ quotesData }) => {
 
 
 
-  const navigateQuotes = (direction) => {
-    if (direction === 'left') {
-      setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
-    } else if (direction === 'right') {
-      setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }
-  };
+const navigateQuotes = (direction) => {
+  if (direction === 'left') {
+    setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
+  } else if (direction === 'right') {
+    setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+  }
+};
 
   return (
     <div className="quotesComponent" >
@@ -71,16 +72,16 @@ const Quotes = ({ quotesData }) => {
       </div>
 
 
-      {addingMessage && <p className="addingMessage">{addingMessage}</p>}
+    {addingMessage && <p className="addingMessage">{addingMessage}</p>}
 
-      {addingQuote ? (
+      e{addingQuote ? (
         <div className="quoteInput">
           <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
           <button onClick={addQuote}>Submit</button>
           <button onClick={() => setAddingQuote(false)}>Cancel</button>
         </div>
       ) : (
-        <div className='w-100 text-center'>
+        <div className='w-100 text-center'>        
           <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
         </div>
       )}
