@@ -56,13 +56,13 @@ const Quotes = ({ quotesData }) => {
 
 
 
-const navigateQuotes = (direction) => {
-  if (direction === 'left') {
-    setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
-  } else if (direction === 'right') {
-    setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-  }
-};
+  const navigateQuotes = (direction) => {
+    if (direction === 'left') {
+      setCurrentQuoteIndex((prevIndex) => (prevIndex - 1 + quotes.length) % quotes.length);
+    } else if (direction === 'right') {
+      setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+    }
+  };
 
   return (
     <div className='container-fluid'>
