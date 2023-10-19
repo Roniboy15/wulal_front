@@ -4,17 +4,11 @@ import './Quotes.css';
 import { doApiPost } from '../../services/springbootAPI';
 
 const Quotes = ({ quotesData }) => {
-const Quotes = ({ quotesData }) => {
   const [quotes, setQuotes] = useState(quotesData);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [addingQuote, setAddingQuote] = useState(false);
   const [newQuote, setNewQuote] = useState('');
   const [addingMessage, setAddingMessage] = useState('');
-
-
-
-
-
 
 
   useEffect(() => {
