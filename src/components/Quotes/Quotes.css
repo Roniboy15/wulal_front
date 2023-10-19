@@ -22,6 +22,7 @@
     margin: 0 20px;
     text-align: center;
     flex-grow: 2;
+
 }
 
 .quotesComponent .addingMessage {
@@ -89,4 +90,5 @@
 .quote-field {
     max-width: 60vw;
     overflow-wrap: break-word;
+    transition: 2s;
 }
