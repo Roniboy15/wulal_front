@@ -33,6 +33,14 @@ function AppContent() {
     let timeoutId;
 
     useEffect(() => {
+        if(loadingPrayers === true){
+            alert("jetztz")
+        console.log(loadingPrayers, loadingQuotes);
+        }
+      }, [loadingPrayers]);
+      
+
+    useEffect(() => {
         if (location.pathname == "/") {
             setHasAttemptedLoading(false)
         }
@@ -40,13 +48,14 @@ function AppContent() {
 
 
     const fetchJSONS = async () => {
-        setLoadingPrayers(true)
         let url = '/file/fetch?folder=' + language;
         try {
             const response = await doApiGet(url);
             response.sort((a, b) => a.id - b.id);
             setPrayers(response);
             setLoadingPrayers(false)
+            clearTimeout(timeoutId);
+
         } catch (err) {
             console.log(err);
         }
@@ -63,6 +72,8 @@ function AppContent() {
             setShowMenu(!showMenu)
             setHasAttemptedLoading(false)
             setLoadingQuotes(false)
+            clearTimeout(timeoutId);
+
         } catch (err) {
             console.log(err);
         }
@@ -103,6 +114,7 @@ function AppContent() {
 
 
     const handleLanguageSelection = (selectedLanguage) => {
+
         setLoadingPrayers(true);
         setHasAttemptedLoading(true);
         setLanguage(selectedLanguage);  // Then set to the desired language
@@ -117,19 +129,20 @@ function AppContent() {
     useEffect(() => {
 
         if (!hasAttemptedLoading) return;
-
+    
         timeoutId = setTimeout(() => {
-            if (loadingPrayers || loadingQuotes) {
+            if (loadingPrayers && loadingQuotes) {
+                console.log(loadingPrayers, loadingQuotes)
                 alert("Try to reload or no connection to the server");
                 setShowLangBtn(false)
                 nav("/")
-
             }
         }, 10000);
-
+    
+        // Here we return a cleanup function that clears the timeout if either loadingPrayers or loadingQuotes becomes false (data has loaded).
         return () => clearTimeout(timeoutId);
-    }, [hasAttemptedLoading]);
-
+    }, [hasAttemptedLoading, loadingPrayers, loadingQuotes]);
+    
 
 
     return (
