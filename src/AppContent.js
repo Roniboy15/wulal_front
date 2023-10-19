@@ -31,15 +31,7 @@ function AppContent() {
     const location = useLocation();
 
     let timeoutId;
-
-    useEffect(() => {
-        if(loadingPrayers === true){
-            alert("jetztz")
-        console.log(loadingPrayers, loadingQuotes);
-        }
-      }, [loadingPrayers]);
       
-
     useEffect(() => {
         if (location.pathname == "/") {
             setHasAttemptedLoading(false)
@@ -132,7 +124,6 @@ function AppContent() {
     
         timeoutId = setTimeout(() => {
             if (loadingPrayers && loadingQuotes) {
-                console.log(loadingPrayers, loadingQuotes)
                 alert("Try to reload or no connection to the server");
                 setShowLangBtn(false)
                 nav("/")
