@@ -1,12 +1,13 @@
 .quotesComponent {
-    background-color: #f7f8fa;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     max-width: 600px;
     margin: 0 auto;
     margin-top: 30vh;
+    position: fixed;
 }
+
+
 
 .quoteNavigation {
     display: flex;
@@ -15,6 +16,8 @@
     margin-bottom: 20px;
 }
 
+
+
 .quotesComponent h2 {
     font-size: 24px;
     line-height: 1.4;
@@ -22,6 +25,8 @@
     margin: 0 20px;
     text-align: center;
     flex-grow: 2;
+
+
 }
 
 .quotesComponent .addingMessage {
@@ -50,7 +55,8 @@
 .quotesComponent button {
     padding: 10px 15px;
     font-size: 16px;
-    background-color: rgba(255, 111, 0, 0.896); /* From your .btn-lang class */
+    background-color: rgba(255, 111, 0, 0.896);
+    /* From your .btn-lang class */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -60,7 +66,8 @@
 }
 
 .quotesComponent button:hover {
-    background-color: rgb(255, 89, 0); /* From your .btn-lang:hover class */
+    background-color: rgb(255, 89, 0);
+    /* From your .btn-lang:hover class */
 }
 
 .quotesComponent button:active {
@@ -84,9 +91,41 @@
     }
 }
 
-
+@keyframes fadeInOut {
+    0% {     /* start of animation */
+      opacity: 0;
+    }
+    25% {    /* middle of animation, 2.5s mark */
+      opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {   /* end of animation */
+      opacity: 0;
+    }
+  }
+  
 
 .quote-field {
     max-width: 60vw;
     overflow-wrap: break-word;
+    opacity: 1;
+    animation-name: fadeInOut;
+    animation-timing-function: ease-in-out;
+    animation-duration: 8s;
+    /* total duration of the animation */
+    animation-iteration-count: infinite;
+    /* this makes the animation run continuously */
+}
+
+
+.quoteNavigation button{
+    opacity: 1;
+    animation-name: fadeInOut;
+    animation-timing-function: ease-in-out;
+    animation-duration: 8s;
+    /* total duration of the animation */
+    animation-iteration-count: infinite;
+    /* this makes the animation run continuously */
 }

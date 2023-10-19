@@ -10,6 +10,12 @@ const Quotes = ({ quotesData }) => {
   const [newQuote, setNewQuote] = useState('');
   const [addingMessage, setAddingMessage] = useState('');
 
+
+
+
+
+
+
   useEffect(() => {
     if (quotes.length === 0) {
       return;
@@ -17,7 +23,7 @@ const Quotes = ({ quotesData }) => {
 
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [quotes]);
@@ -59,31 +65,37 @@ const Quotes = ({ quotesData }) => {
   };
 
   return (
-    <div className="quotesComponent" >
-      <div className="quoteNavigation">
-        <button onClick={() => navigateQuotes('left')} disabled={quotes.length === 0}>&lt;</button>
-        {quotes.length > 0 ? (
-          <h2 className='quote-field'>"{quotes[currentQuoteIndex].quote}"</h2>
+    <div className='container-fluid'>
+
+<div className='row justify-content-center '>
+      <div className="quotesComponent" >
+        <div className="quoteNavigation">
+          <button onClick={() => navigateQuotes('left')} disabled={quotes.length === 0}>&lt;</button>
+          {quotes.length > 0 ? (
+            <h2 className='quote-field'>"{quotes[currentQuoteIndex].quote}"</h2>
+          ) : (
+            <h2 className='quote-field'>No quotes available</h2>
+          )}
+          <button onClick={() => navigateQuotes('right')} disabled={quotes.length === 0}>&gt;</button>
+        </div>
+
+
+
+        {addingQuote ? (
+          <div className="quoteInput">
+            <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
+            <button onClick={addQuote}>Submit</button>
+            <button onClick={() => setAddingQuote(false)}>Cancel</button>
+          </div>
         ) : (
-          <h2 className='quote-field'>No quotes available</h2>
+          <div className='w-100 text-center' style={{ position: "fixed", bottom: 100, right: 0 }}>
+                    {addingMessage && <p className="addingMessage">{addingMessage}</p>}
+
+            <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
+          </div>
         )}
-        <button onClick={() => navigateQuotes('right')} disabled={quotes.length === 0}>&gt;</button>
       </div>
-
-
-      {addingMessage && <p className="addingMessage">{addingMessage}</p>}
-
-      {addingQuote ? (
-        <div className="quoteInput">
-          <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
-          <button onClick={addQuote}>Submit</button>
-          <button onClick={() => setAddingQuote(false)}>Cancel</button>
-        </div>
-      ) : (
-        <div className='w-100 text-center'>
-          <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
