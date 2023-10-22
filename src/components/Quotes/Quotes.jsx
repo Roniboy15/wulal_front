@@ -90,7 +90,7 @@ const Quotes = ({ quotesData }) => {
           <div className='w-100 text-center' style={{ position: "fixed", bottom: 100, right: 0 }}>
                     {addingMessage && <p className="addingMessage">{addingMessage}</p>}
 
-            <button className='mt-5' onClick={() => setAddingQuote(true)}>Add Quote</button>
+            <button style={{marginBottom:"-15px"}} onClick={() => setAddingQuote(true)}>Add Quote</button>
           </div>
         )}
       </div>

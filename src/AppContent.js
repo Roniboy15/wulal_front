@@ -31,8 +31,14 @@ function AppContent() {
     const location = useLocation();
 
     let timeoutId;
-      
+
     useEffect(() => {
+        if (location.pathname == "/flipbook") {
+            fetchJSONS();
+        }
+        else if (location.pathname == "/quotes") {
+            fetchQuotes()
+        }
         if (location.pathname == "/") {
             setHasAttemptedLoading(false)
         }
@@ -40,7 +46,8 @@ function AppContent() {
 
 
     const fetchJSONS = async () => {
-        let url = '/file/fetch?folder=' + language;
+        let lang = localStorage.getItem("lang");
+        let url = '/file/fetch?folder=' + lang;
         try {
             const response = await doApiGet(url);
             response.sort((a, b) => a.id - b.id);
@@ -106,7 +113,7 @@ function AppContent() {
 
 
     const handleLanguageSelection = (selectedLanguage) => {
-
+        localStorage.setItem("lang", selectedLanguage)
         setLoadingPrayers(true);
         setHasAttemptedLoading(true);
         setLanguage(selectedLanguage);  // Then set to the desired language
@@ -121,7 +128,7 @@ function AppContent() {
     useEffect(() => {
 
         if (!hasAttemptedLoading) return;
-    
+
         timeoutId = setTimeout(() => {
             if (loadingPrayers && loadingQuotes) {
                 alert("Try to reload or no connection to the server");
@@ -129,11 +136,11 @@ function AppContent() {
                 nav("/")
             }
         }, 10000);
-    
+
         // Here we return a cleanup function that clears the timeout if either loadingPrayers or loadingQuotes becomes false (data has loaded).
         return () => clearTimeout(timeoutId);
     }, [hasAttemptedLoading, loadingPrayers, loadingQuotes]);
-    
+
 
 
     return (
