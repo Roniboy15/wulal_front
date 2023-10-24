@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'http://localhost:8000';
+const API_KEY = 'https://wulal-886ecc4c7ff3.herokuapp.com';
 
 
 export const doApiGet = async (url) => {
