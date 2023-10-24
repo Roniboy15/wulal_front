@@ -15,7 +15,6 @@ const Quotes = ({ quotesData }) => {
 
   useEffect(() => {
     const fontS = getAdaptiveFontSize(quotes[currentQuoteIndex].quote, 190);
-    console.log(fontSize)
     setFontSize(fontS);
   }, [currentQuoteIndex])
 
