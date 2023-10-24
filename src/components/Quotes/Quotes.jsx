@@ -2,20 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Quotes.css';
 import { doApiPost } from '../../services/springbootAPI';
+import getAdaptiveFontSize from '../../general_comps/fontSize';
 
 const Quotes = ({ quotesData }) => {
   const [quotes, setQuotes] = useState(quotesData);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [addingQuote, setAddingQuote] = useState(false);
   const [newQuote, setNewQuote] = useState('');
+  const [mail, setMail] = useState('');
   const [addingMessage, setAddingMessage] = useState('');
-
+  const [fontSize, setFontSize] = useState(0);
 
   useEffect(() => {
-    if (quotes.length === 0) {
-      return;
-    }
+    const fontS = getAdaptiveFontSize(quotes[currentQuoteIndex].quote, 190);
+    console.log(fontSize)
+    setFontSize(fontS);
+  }, [currentQuoteIndex])
 
+  useEffect(() => {
     if (quotes.length === 0) {
       return;
     }
@@ -32,7 +36,7 @@ const Quotes = ({ quotesData }) => {
   const addQuote = async () => {
     setAddingMessage("Your quote is being checked...");
     try {
-      const result = await doApiPost('/file/addquote', newQuote);
+      const result = await doApiPost('/file/addquote', { quote: newQuote, mail: mail });
       if (result == 10) {
         setAddingMessage('You reached the limit of possible requests');
         setTimeout(() => {
@@ -66,34 +70,41 @@ const Quotes = ({ quotesData }) => {
   return (
     <div className='container-fluid'>
 
-<div className='row justify-content-center '>
-      <div className="quotesComponent" >
-        <div className="quoteNavigation">
-          <button onClick={() => navigateQuotes('left')} disabled={quotes.length === 0}>&lt;</button>
-          {quotes.length > 0 ? (
-            <h2 className='quote-field'>"{quotes[currentQuoteIndex].quote}"</h2>
+      <div className='row justify-content-center '>
+
+        <div className="quotesComponent text-center" >
+          <button className='button-left' onClick={() => navigateQuotes('left')} disabled={quotes.length === 0}>&lt;</button>
+          <button className='button-right' onClick={() => navigateQuotes('right')} disabled={quotes.length === 0}>&gt;</button>
+          <div className="quoteNavigation ">
+
+            {quotes.length > 0 ? (
+              <h2 className='quote-field' style={{ fontSize: fontSize }}>"{quotes[currentQuoteIndex].quote}"</h2>
+            ) : (
+              <h2 className='quote-field'>No quotes available</h2>
+            )}
+
+          </div>
+
+
+
+          {addingQuote ? (
+            <div className="quoteInput" style={{marginRight:"20px"}}>
+              <input type='email' className='mt-5' value={mail} onChange={e => setMail(e.target.value)} placeholder={"Your email..." || mail}></input>
+              <textarea className='' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
+              <button onClick={addQuote}>Submit</button>
+              <button onClick={() => setAddingQuote(false)}>Cancel</button>
+            </div>
           ) : (
-            <h2 className='quote-field'>No quotes available</h2>
+            <div className='w-100 text-center' style={{ position: "fixed" }}>
+              {addingMessage && <p className="addingMessage">{addingMessage}</p>}
+
+            </div>
           )}
-          <button onClick={() => navigateQuotes('right')} disabled={quotes.length === 0}>&gt;</button>
+          {addingQuote ? "" :
+            <button className='add-quote-btn' onClick={() => setAddingQuote(true)}>Add Quote</button>
+          }
+
         </div>
-
-
-
-        {addingQuote ? (
-          <div className="quoteInput">
-            <textarea className='mt-5' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
-            <button onClick={addQuote}>Submit</button>
-            <button onClick={() => setAddingQuote(false)}>Cancel</button>
-          </div>
-        ) : (
-          <div className='w-100 text-center' style={{ position: "fixed", bottom: 100, right: 0 }}>
-                    {addingMessage && <p className="addingMessage">{addingMessage}</p>}
-
-            <button style={{marginBottom:"-15px"}} onClick={() => setAddingQuote(true)}>Add Quote</button>
-          </div>
-        )}
-      </div>
       </div>
     </div>
   );

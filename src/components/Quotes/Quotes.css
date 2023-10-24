@@ -1,9 +1,8 @@
 .quotesComponent {
-    border-radius: 10px;
     padding: 20px;
     max-width: 600px;
     margin: 0 auto;
-    margin-top: 25vh;
+    margin-top: 30vh;
     min-height: 100vh;
 }
 
@@ -42,7 +41,8 @@
     margin-bottom: 20px;
 }
 
-.quotesComponent textarea {
+.quotesComponent textarea,
+input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -92,20 +92,26 @@
 }
 
 @keyframes fadeInOut {
-    0% {     /* start of animation */
-      opacity: 0;
+    0% {
+        /* start of animation */
+        opacity: 0;
     }
-    25% {    /* middle of animation, 2.5s mark */
-      opacity: 1;
+
+    25% {
+        /* middle of animation, 2.5s mark */
+        opacity: 1;
     }
+
     75% {
         opacity: 1;
     }
-    100% {   /* end of animation */
-      opacity: 0;
+
+    100% {
+        /* end of animation */
+        opacity: 0;
     }
-  }
-  
+}
+
 
 .quote-field {
     max-width: 60vw;
@@ -120,12 +126,33 @@
 }
 
 
-.quoteNavigation button{
-    opacity: 1;
-    animation-name: fadeInOut;
-    animation-timing-function: ease-in-out;
-    animation-duration: 8s;
-    /* total duration of the animation */
-    animation-iteration-count: infinite;
-    /* this makes the animation run continuously */
+.button-right {
+    position: fixed;
+    top: 50%;
+    /* To center vertically */
+    right: 0;
+    /* Stick to the right side */
+    transform: translateY(-50%);
+    /* Vertical centering adjustment */
+    z-index: 1000;
+    /* Place it above other elements */
+    margin-right: 20px;
+}
+
+.button-left {
+    position: fixed;
+    top: 50%;
+    /* To center vertically */
+    left: 0;
+    /* Stick to the left side */
+    transform: translateY(-50%);
+    /* Vertical centering adjustment */
+    z-index: 1000;
+    /* Place it above other elements */
+    margin-left: 10px;
+
+}
+
+.add-quote-btn {
+    margin-top: 20px;
 }
