@@ -74,7 +74,7 @@ const Quotes = ({ quotesData }) => {
         <div className="quotesComponent text-center" >
           <button className='button-left' onClick={() => navigateQuotes('left')} disabled={quotes.length === 0}>&lt;</button>
           <button className='button-right' onClick={() => navigateQuotes('right')} disabled={quotes.length === 0}>&gt;</button>
-          <div className="quoteNavigation ">
+          <div className="quoteNavigation row">
 
             {quotes.length > 0 ? (
               <h2 className='quote-field' style={{ fontSize: fontSize }}>"{quotes[currentQuoteIndex].quote}"</h2>
@@ -82,23 +82,23 @@ const Quotes = ({ quotesData }) => {
               <h2 className='quote-field'>No quotes available</h2>
             )}
 
+            <div className='w-100 text-center' style={{ position: "" }}>
+              {addingMessage && <p className="addingMessage">{addingMessage}</p>}
+
+            </div>
+
           </div>
 
 
 
           {addingQuote ? (
-            <div className="quoteInput" style={{marginRight:"20px"}}>
+            <div className="quoteInput" style={{ marginRight: "20px" }}>
               <input type='email' className='mt-5' value={mail} onChange={e => setMail(e.target.value)} placeholder={"Your email..." || mail}></input>
               <textarea className='' value={newQuote} onChange={e => setNewQuote(e.target.value)} placeholder="Add a quote..."></textarea>
               <button onClick={addQuote}>Submit</button>
               <button onClick={() => setAddingQuote(false)}>Cancel</button>
             </div>
-          ) : (
-            <div className='w-100 text-center' style={{ position: "fixed" }}>
-              {addingMessage && <p className="addingMessage">{addingMessage}</p>}
-
-            </div>
-          )}
+          ) : ""}
           {addingQuote ? "" :
             <button className='add-quote-btn' onClick={() => setAddingQuote(true)}>Add Quote</button>
           }

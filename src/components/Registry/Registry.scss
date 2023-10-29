@@ -74,4 +74,24 @@
             transform: scale(0.95);
         }
     }
+
+    .whatsapp-icon{
+        position: absolute;
+        bottom: 15px;
+        right: 60px;
+        cursor: pointer;
+        font-size: 26px;
+        z-index: 1003;
+        transition: transform 0.2s ease, color 0.2s ease;
+
+
+        &:hover {
+            color: rgb(255, 111, 0);
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
 }
