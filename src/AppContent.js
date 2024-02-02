@@ -66,7 +66,7 @@ function AppContent() {
         let url = '/file/download/quotes.json';
         try {
             const response = await doApiGet(url);
-            // response.sort((a, b) => a.id - b.id);
+            response.sort((a, b) => 0.5 - Math.random());
             setQuotes(response);
             setShowMenu(!showMenu)
             setHasAttemptedLoading(false)
